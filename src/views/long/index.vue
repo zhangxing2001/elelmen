@@ -35,6 +35,9 @@
       >
     </el-form>
   </div>
+  <!-- <svg aria-hidden="true" class="defaultSvgClass">
+    <use xlink:href="#icon-jurassic" class="axas"></use>
+  </svg> -->
 </template>
 
 <script setup>
@@ -42,6 +45,7 @@ import { ref } from 'vue'
 import { passwordValidate } from './rule.js'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
+import '../../icon_svg/svg/jurassic.svg'
 const loadefrom = ref({
   username: 'super-admin',
   password: '123456'
@@ -78,11 +82,16 @@ const handleLogin = () => {
       return // 一个规则没有通过
     }
     // 验证通过执行登录逻辑 调用定义好的actions
-    store.dispatch('user/login', loadefrom.value).then((res) => {
-      router.push({
-        name: 'Index'
+    store
+      .dispatch('user/login', loadefrom.value)
+      .then((res) => {
+        router.push({
+          name: 'Index'
+        })
       })
-    })
+      .catch((err) => {
+        console.log(err)
+      })
   })
 }
 </script>

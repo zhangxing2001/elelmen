@@ -2,7 +2,7 @@
 // 设置数据
 export const setItem = (key, value) => {
   if (typeof value === 'object') {
-    return (value = JSON.stringify(value))
+    value = JSON.stringify(value)
   }
   window.localStorage.setItem(key, value)
 }

@@ -1,20 +1,28 @@
 // 封装token ---> api 只有登录以后才能访问 再axios 封装header{token}
 import md5 from 'md5'
-import { setItem, getItem } from '../../utils/storage.js'
+import { setItem, getItem } from '@/utils/storage.js'
 // import * as utils from '../../utils/storage.js'
-import { login } from '../../api/user.js'
+import { login, getUserInfo } from '../../api/user.js'
+// 导入路由
+import router from '../../router/index.js'
+import { setTimeStamp } from '@/utils/auth.js'
 // 密码写错的情况下触发 需要引入
 
-import { TOKEN } from '../../commmon/common.js'
+import { TOHEN, USER_INFO } from '@/commmon/common.js'
 const state = {
-  token: getItem(TOKEN) || ''
+  token: getItem(TOHEN) || '',
+  userInfo: {}
 }
 const getters = {}
 const mutations = {
   setToken(state, token) {
-    console.log(']]]]', token)
     state.token = token
-    setItem(TOKEN, token)
+    setItem(TOHEN, token)
+    console.log(state.token)
+  },
+  getUserInfo(state, zhangxing) {
+    state.userInfo = zhangxing
+    setItem(USER_INFO, zhangxing)
   }
 }
 const actions = {
@@ -24,20 +32,37 @@ const actions = {
     // info 传过来的数据
     // info.password = md5(info.password)
     const { username, password } = info
-    return new Promise((resolve, reject) => {
+    return new Promise((resolve) => {
       login({
         username,
         password: md5(password)
       })
         .then((res) => {
           commit('setToken', res.token)
+          // 记录token的获取时间
+          setTimeStamp()
           resolve()
         })
         .catch((err) => {
-          console.log('xxxx--->', err) 
-          reject()
+          console.log(err)
         })
     })
+  },
+  logout({ commit }) {
+    // 清理用户的数据
+    commit('setToken', '')
+    router.push('/login')
+  },
+  // 请求用户数据
+  getUserInfo({ commit }) {
+    // 发送axios
+    getUserInfo()
+      .then((res) => {
+        commit('getUserInfo', res)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
 export default {

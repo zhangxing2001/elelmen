@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
-import user from './modules/user.js'
-import getters from './modules/getter.js'
+import user from './modules/user'
+import getters from './modules/getter'
 export default createStore({
   getters,
   modules: {
