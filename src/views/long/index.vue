@@ -101,6 +101,9 @@ const handleLogin = () => {
   width: 100%;
   height: 100vh;
   background-color: #ccc;
+  background: url('http://plc.jj20.com/up/allimg/1113/052420110515/200524110515-5.jpg')
+    no-repeat;
+  background-size: 100% 100%;
   .title {
     text-align: center;
     padding: 20px 0;
