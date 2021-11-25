@@ -22,13 +22,14 @@
       :icon="route.meta.icon"
       :children="false"
     />
-    <template #title>{{ route.meta.title }}</template>
+    <template #title>{{ getTitle(route.meta.title) }}</template>
   </el-menu-item>
 </template>
 
 <script setup>
 import { defineProps } from 'vue'
 import MenuItem from './Menuitem.vue'
+import { getTitle } from '@/utils/i18n.js'
 defineProps({
   route: {
     type: Object,

@@ -103,3 +103,14 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
               2. 不过不满足 meta && meta。icon &&meta.title 不应该出现
     3.根据获取的路由对象 遍历输出对应的菜单
 
+/*
+    中英文切换（国际化）
+      1.需要一个变量 locale 控制语言的环境
+      2.所有的语言中的数据要事先准备好
+      3.定义一个方法获取对应的语言包中的数据
+  
+    还要借助一个插件 i18n
+      1.下载 i18n  npm install vue-i18n@next  // 因为项目用的是vue3.2的版本 保证i18n 版本必须是  > 9.0.0 
+      然后引入 i18n   import { createI18n } from "vue-i18n"
+*/ 
+

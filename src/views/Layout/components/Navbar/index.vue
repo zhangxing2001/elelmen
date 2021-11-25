@@ -8,6 +8,8 @@
     <!-- 动态面包屑 -->
     <Breadcrumb class="Breadcrumb-container" />
     <div class="rigth-menu">
+      <!-- 国际化中英文按钮的切换 -->
+      <select-lang class="right-menu-item" />
       <el-dropdown @command="handleCommand" class="avatar-container">
         <div class="avatar-wrapper">
           <!-- 头像 -->
@@ -15,11 +17,15 @@
         </div>
         <template #dropdown>
           <el-dropdown-menu class="user-drop-down">
-            <el-dropdown-item command="c">首页</el-dropdown-item>
-            <el-dropdown-item command="d" disabled>课程主页</el-dropdown-item>
-            <el-dropdown-item command="e" divided @click="logout"
-              >退出登录</el-dropdown-item
-            >
+            <el-dropdown-item command="c">{{
+              $t('msg.navBar.home')
+            }}</el-dropdown-item>
+            <el-dropdown-item command="d" disabled>{{
+              $t('msg.navBar.course')
+            }}</el-dropdown-item>
+            <el-dropdown-item command="e" divided @click="logout">{{
+              $t('msg.navBar.logout')
+            }}</el-dropdown-item>
           </el-dropdown-menu>
         </template>
       </el-dropdown>
@@ -32,6 +38,7 @@ import avater from '@/assets/logo.png'
 import { useStore } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Cuttle from '@/components/Cuttie/index.vue'
+import SelectLang from '@/components/SelectLang/index.vue'
 
 // 主动退出
 const store = useStore()
@@ -55,21 +62,16 @@ const logout = () => {
   width: calc(100% - #{$sideBarWidth});
   border-bottom: 1px solid red;
   display: flex;
-  .right-menu {
-    display: flex;
-    align-items: center;
-    float: right;
-    padding-right: 16px;
 
-    .avatar-container {
-      cursor: pointer;
-      .avatar-wrapper {
-        margin-top: 5px;
-        position: relative;
-        // right: 0;
-      }
+  .avatar-container {
+    cursor: pointer;
+    .avatar-wrapper {
+      margin-top: 5px;
+      position: relative;
+      // right: 0;
     }
   }
+
   .cuttle-container {
     cursor: pointer;
     line-height: 50px;
@@ -113,5 +115,15 @@ const logout = () => {
   top: 0;
   display: flex;
   align-items: center;
+}
+:deep(.right-menu-item) {
+  display: inline-block;
+  padding: 13px 13px;
+  font-size: 24px;
+  color: #ccc;
+  vertical-align: text-bottom;
+  &:hover {
+    background: rgba(0, 0, 0, 0.1);
+  }
 }
 </style>

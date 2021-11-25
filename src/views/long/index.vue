@@ -7,7 +7,8 @@
       ref="loginRef"
     >
       <div class="title-container">
-        <h3 class="title">用户登录</h3>
+        <h3 class="title">{{ $t('msg.login.title') }}</h3>
+        <SelectLang class="zhang" />
       </div>
       <el-form-item prop="username">
         <span class="llll">
@@ -30,9 +31,11 @@
           <svg-icon iconName="xianshimima" />
         </span>
       </el-form-item>
-      <el-button type="primary" @click="handleLogin"
-        >登录{{ store.state.user.token }}</el-button
-      >
+      <el-button type="primary" @click="handleLogin">{{
+        $t('msg.login.loginBtn')
+      }}</el-button>
+      <!-- 账号 -->
+      <div class="tips" v-html="$t('msg.login.desc')"></div>
     </el-form>
   </div>
   <!-- <svg aria-hidden="true" class="defaultSvgClass">
@@ -41,11 +44,14 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { passwordValidate } from './rule.js'
+import { ref, watch } from 'vue'
+import { passwordValidate, usernamevalidator } from './rule.js'
 import { useStore } from 'vuex'
 import { useRouter } from 'vue-router'
 import '../../icon_svg/svg/jurassic.svg'
+import SelectLang from '@/components/SelectLang/index.vue'
+// import { useI18n } from 'vue-i18n'
+// const i18n = useI18n()
 const loadefrom = ref({
   username: 'super-admin',
   password: '123456'
@@ -54,13 +60,15 @@ const flag = ref(false)
 const toggleIcon = () => {
   flag.value = !flag.value
 }
+// console.log(i18n.t('msg.login.usernameRule'))
 // 表单验证
 const loginRules = ref({
   username: [
     {
       required: true,
       trigger: 'blur', // 触发焦点trigger触发
-      message: '账号必须填写'
+      // message: i18n.t('msg.login.usernameRule') 不具备响应式
+      validator: usernamevalidator()
     }
   ],
   password: [
@@ -94,6 +102,14 @@ const handleLogin = () => {
       })
   })
 }
+watch(
+  () => store.getters.language,
+  () => {
+    // 发生中中英文的切换换，验证宠幸执行
+    loginRef.value.validateField('username')
+    loginRef.value.validateField('password')
+  }
+)
 </script>
 <style lang="scss">
 .login-container {
@@ -101,12 +117,20 @@ const handleLogin = () => {
   width: 100%;
   height: 100vh;
   background-color: #ccc;
-  background: url('http://plc.jj20.com/up/allimg/1113/052420110515/200524110515-5.jpg')
-    no-repeat;
-  background-size: 100% 100%;
-  .title {
-    text-align: center;
-    padding: 20px 0;
+  .title-container {
+    position: relative;
+    .title {
+      text-align: center;
+      padding: 20px 0;
+    }
+    .zhang {
+      position: absolute;
+      right: 0px;
+      background: #fff;
+      top: 15px;
+      font-size: 24px;
+      cursor: pointer;
+    }
   }
   .el_from {
     height: 100%;

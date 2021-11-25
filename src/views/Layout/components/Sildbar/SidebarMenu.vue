@@ -34,6 +34,7 @@ const routes = computed(() => {
   const filterRoutes = filterRouter(router.getRoutes())
   return generateMenus(filterRoutes)
 })
+console.log(routes.value)
 const route = useRoute()
 // 以后激活的路由要变化
 const activePath = computed(() => {

@@ -46,21 +46,16 @@ export function generateMenus(routes, basePath = '') {
     }
     // 合并 path 作为跳转路径
     const routePath = path.resolve(basePath, item.path)
-    console.log(item.path, '9999')
-    console.log(routePath, '000000')
     // 路由分离之后，存在同名父路由的情况，需要单独处理
     let route = result.find((item) => {
-      console.log(item.path, routePath, '1111111')
       return item.path === routePath
     })
-    console.log(route, 10000)
     if (!route) {
       route = {
         ...item,
         path: routePath,
         children: []
       }
-      console.log(route, 20000)
       // icon 与 title 必须全部存在
       if (route.meta.icon && route.meta.title) {
         // meta 存在生成 route 对象，放入 arr
