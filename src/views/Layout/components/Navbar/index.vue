@@ -9,7 +9,8 @@
     <Breadcrumb class="Breadcrumb-container" />
     <div class="rigth-menu">
       <!-- 国际化中英文按钮的切换 -->
-      <select-lang class="right-menu-item" />
+      <Theme class="right-menu-item" />
+      <select-lang class="right-menu-item" data="" />
       <el-dropdown @command="handleCommand" class="avatar-container">
         <div class="avatar-wrapper">
           <!-- 头像 -->
@@ -39,6 +40,7 @@ import { useStore } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Cuttle from '@/components/Cuttie/index.vue'
 import SelectLang from '@/components/SelectLang/index.vue'
+import Theme from '@/components/Theme/index.vue'
 
 // 主动退出
 const store = useStore()

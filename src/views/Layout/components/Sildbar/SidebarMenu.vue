@@ -55,4 +55,10 @@ console.log(route)
   width: $sideBarhideWidth;
   transition: width 0.28s;
 }
+:deep(.el-sub-menu__title) {
+  display: block !important;
+}
+:deep(.el-menu-item) {
+  display: block !important;
+}
 </style>

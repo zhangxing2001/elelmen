@@ -5,7 +5,7 @@
   >
     <SildBar
       class="siderbar-container"
-      :style="{ backgroundColor: variables.menuBg }"
+      :style="{ backgroundColor: store.getters.cssVar.menuBg }"
     />
     <div class="main_container">
       <div class="fixed_header"><AppMain /></div>
@@ -18,9 +18,10 @@
 import SildBar from './components/Sildbar/index.vue'
 import AppMain from './components/Appmain/index.vue'
 import NavBar from './components/Navbar/index.vue'
-import variables from '@/style/variables.scss'
+// import variables from '@/style/variables.scss'
 import { useStore } from 'vuex'
 const store = useStore()
+console.log(store.getters.cssVar.menuBg + '999999963')
 </script>
 
 <style lang="scss" scoped>
@@ -44,7 +45,6 @@ const store = useStore()
   position: fixed;
   top: 50px;
   right: 0;
-  z-index: 10;
   border-top: 1px solid red;
   transition: width 0.28s;
   width: calc(100% - #{$sideBarWidth}); //用来计算动态width
